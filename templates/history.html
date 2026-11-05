@@ -1,0 +1,109 @@
+```html
+{% extends 'base.html' %}
+
+{% block title %}Learning History | EduMind{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+    <div>
+        <span class="section-kicker">YOUR LEARNING JOURNEY</span>
+        <h1>Learning <span class="gradient-text">History</span></h1>
+        <p class="muted">
+            All your saved learning activities in one place.
+        </p>
+    </div>
+</section>
+
+<section class="stats-grid">
+
+    <div class="stat-card">
+        <small>Topic Explanations</small>
+        <strong>{{ topic_count|default:0 }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <small>Interview Sets</small>
+        <strong>{{ interview_count|default:0 }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <small>Completed Quizzes</small>
+        <strong>{{ quiz_count|default:0 }}</strong>
+    </div>
+
+</section>
+
+<section class="panel">
+
+    <form method="GET" class="history-search">
+
+        <input type="text"
+               name="q"
+               placeholder="Search your learning history..."
+               value="{{ request.GET.q|default:'' }}">
+
+        <button class="btn" type="submit">
+            Search
+        </button>
+
+    </form>
+
+    <div class="tabs">
+
+        <a href="?type=all">All</a>
+        <a href="?type=topics">Topics</a>
+        <a href="?type=interviews">Interviews</a>
+        <a href="?type=quizzes">Quizzes</a>
+
+    </div>
+
+    <div class="history-list">
+
+        {% for item in history_items %}
+
+            <article class="history-item">
+
+                <div>
+                    <span class="history-type">{{ item.type }}</span>
+
+                    <h3>{{ item.title }}</h3>
+
+                    <small>{{ item.created_at }}</small>
+                </div>
+
+                <div>
+                    <a href="{{ item.url }}" class="text-link">
+                        View →
+                    </a>
+
+                    <form method="POST"
+                          action="{% url 'delete_history' item.type item.id %}"
+                          onsubmit="return confirm('Delete this history item?');">
+
+                        {% csrf_token %}
+
+                        <button type="submit" class="copy-btn">
+                            Delete
+                        </button>
+
+                    </form>
+                </div>
+
+            </article>
+
+        {% empty %}
+
+            <div class="empty-state">
+                <h3>No learning history</h3>
+                <p>Your saved activities will appear here.</p>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}
+```

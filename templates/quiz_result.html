@@ -1,0 +1,61 @@
+```html
+{% extends 'base.html' %}
+
+{% block title %}Quiz Result | EduMind{% endblock %}
+
+{% block content %}
+
+<section class="panel score-panel">
+
+    <span class="section-kicker">QUIZ COMPLETED</span>
+
+    <h1>Your Result</h1>
+
+    <p class="score-number">{{ percentage }}%</p>
+
+    <h2>{{ score }} / {{ total_questions }}</h2>
+
+    <p class="muted">
+        {% if percentage >= 80 %}
+            Excellent work! You understood this topic well.
+        {% elif percentage >= 50 %}
+            Good effort! Review the incorrect answers and practise again.
+        {% else %}
+            Keep learning. Every attempt helps you improve.
+        {% endif %}
+    </p>
+
+    <a href="{% url 'quiz' %}" class="btn">
+        Generate Another Quiz →
+    </a>
+
+    <a href="{% url 'history' %}" class="btn btn-outline">
+        View Learning History
+    </a>
+
+</section>
+
+<section class="panel section-block">
+
+    <h2>Answer Review</h2>
+
+    {% for result in results %}
+
+        <article class="quiz-question">
+
+            <h3>{{ result.question }}</h3>
+
+            <p>Your answer: {{ result.selected_answer }}</p>
+
+            <p>Correct answer: {{ result.correct_answer }}</p>
+
+            <p>{{ result.explanation }}</p>
+
+        </article>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}
+```

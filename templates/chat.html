@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}AI Chat | EduMind{% endblock %}
+{% block content %}
+
+<h1>AI Chat Assistant</h1>
+<p>Ask any study-related question.</p>
+
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<div class="panel">
+    {% for chat in chat_messages %}
+        <p>
+            <strong>{% if chat.role == 'user' %}You{% else %}EduMind AI{% endif %}:</strong>
+            {{ chat.message|linebreaksbr }}
+        </p>
+    {% empty %}
+        <p>Start your conversation!</p>
+    {% endfor %}
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+    <textarea name="message" placeholder="Ask your question..." required></textarea>
+    <button type="submit">Ask AI</button>
+</form>
+
+{% endblock %}

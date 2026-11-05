@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Register | EduMind{% endblock %}
+
+{% block content %}
+
+<section class="auth-layout">
+    <div class="auth-aside">
+        <span class="section-kicker">GET STARTED</span>
+        <h1>Create Your<br>
+            <span class="gradient-text">EduMind Account</span>
+        </h1>
+        <p>Start your learning journey with your personal AI study companion.</p>
+    </div>
+
+    <div class="panel auth-panel">
+        <h2>Create Account</h2>
+        <p class="muted">Enter your details below.</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'register' %}" class="form-grid">
+            {% csrf_token %}
+
+            <label>First Name</label>
+            <input type="text" name="first_name" required>
+
+            <label>Last Name</label>
+            <input type="text" name="last_name" required>
+
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Password</label>
+            <input type="password" name="password" minlength="6" required>
+
+            <label>Confirm Password</label>
+            <input type="password" name="confirm_password" minlength="6" required>
+
+            <button type="submit" class="btn btn-full">Register →</button>
+        </form>
+
+        <p class="form-foot">
+            Already have an account?
+            <a href="{% url 'login' %}">Login here</a>
+        </p>
+    </div>
+</section>
+
+{% endblock %}

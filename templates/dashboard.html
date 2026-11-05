@@ -1,0 +1,52 @@
+```html
+{% extends 'base.html' %}
+
+{% block title %}Dashboard | EduMind{% endblock %}
+
+{% block content %}
+
+<section class="section">
+
+    <span class="section-kicker">STUDENT DASHBOARD</span>
+
+    <h1>
+        Welcome, <span class="gradient-text">{{ user.first_name|default:user.username }}</span>!
+    </h1>
+
+    <p class="muted">
+        Welcome to your personal EduMind learning space.
+    </p>
+
+    <div class="panel">
+        <h2>Your Learning Journey</h2>
+        <p>Start learning, practise quizzes and prepare for interviews.</p>
+    </div>
+
+    <div class="feature-grid">
+
+        <div class="panel">
+            <h3>AI Topic Explainer</h3>
+            <p>Understand difficult concepts easily.</p>
+        </div>
+
+        <div class="panel">
+            <h3>Interview Preparation</h3>
+            <p>Prepare for technical interviews.</p>
+        </div>
+
+        <div class="panel">
+            <h3>Quiz Practice</h3>
+            <p>Test your knowledge.</p>
+        </div>
+
+        <div class="panel">
+            <h3>AI Chat Assistant</h3>
+            <p>Ask questions and learn.</p>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+```

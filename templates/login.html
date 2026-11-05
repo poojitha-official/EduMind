@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Login | EduMind{% endblock %}
+
+{% block content %}
+
+<section class="auth-layout login-layout">
+
+    <div class="auth-aside">
+        <span class="section-kicker">WELCOME BACK</span>
+
+        <h1>Your learning<br>
+            <span class="gradient-text">continues here.</span>
+        </h1>
+
+        <p>Login to access your personal dashboard and learning space.</p>
+    </div>
+
+    <div class="panel auth-panel">
+
+        <span class="section-kicker">STUDENT LOGIN</span>
+
+        <h2>Welcome Back!</h2>
+        <p class="muted">Login to your EduMind account.</p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'login' %}" class="form-grid">
+            {% csrf_token %}
+
+            <label>Username</label>
+            <input type="text" name="username"
+                   placeholder="Enter username"
+                   autocomplete="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password"
+                   placeholder="Enter password"
+                   autocomplete="current-password" required>
+
+            <button type="submit" class="btn btn-full">Login →</button>
+        </form>
+
+        <p class="form-foot">
+            Don't have an account?
+            <a href="{% url 'register' %}">Register here</a>
+        </p>
+
+    </div>
+</section>
+
+{% endblock %}

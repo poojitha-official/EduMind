@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Quiz Generator | EduMind{% endblock %}
+{% block content %}
+
+<h1>AI Quiz Generator</h1>
+<p>Generate multiple-choice questions for practice.</p>
+
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<form method="POST" class="panel">
+    {% csrf_token %}
+
+    <label>Subject</label>
+    <input type="text" name="subject" placeholder="Example: Computer Networks" required>
+
+    <label>Topic</label>
+    <input type="text" name="topic" placeholder="Example: TCP and UDP" required>
+
+    <label>Difficulty</label>
+    <select name="difficulty">
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+    </select>
+
+    <label>Number of Questions</label>
+    <input type="number" name="number_of_questions" min="1" max="10" value="5">
+
+    <button type="submit">Generate Quiz</button>
+</form>
+
+<h2>Generated Quizzes</h2>
+
+{% for quiz in quizzes %}
+    <div class="panel">
+        <h3>{{ quiz.topic }} - {{ quiz.subject }}</h3>
+
+        {% for question in quiz.questions.all %}
+            <p><strong>Q{{ forloop.counter }}. {{ question.question_text }}</strong></p>
+            <p>A. {{ question.option_a }}</p>
+            <p>B. {{ question.option_b }}</p>
+            <p>C. {{ question.option_c }}</p>
+            <p>D. {{ question.option_d }}</p>
+            <p><strong>Correct Answer: {{ question.correct_answer }}</strong></p>
+            <p>Explanation: {{ question.explanation }}</p>
+        {% endfor %}
+    </div>
+{% empty %}
+    <p>No quizzes generated yet.</p>
+{% endfor %}
+
+{% endblock %}

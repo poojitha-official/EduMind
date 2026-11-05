@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Interview Preparation | EduMind{% endblock %}
+{% block content %}
+
+<h1>AI Interview Preparation</h1>
+<p>Practice technical interview questions.</p>
+
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<form method="POST" class="panel">
+    {% csrf_token %}
+
+    <label>Subject</label>
+    <input type="text" name="subject" placeholder="Example: Python" required>
+
+    <label>Job Role</label>
+    <input type="text" name="role" placeholder="Example: Python Developer" required>
+
+    <label>Difficulty</label>
+    <select name="difficulty">
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+    </select>
+
+    <label>Number of Questions</label>
+    <input type="number" name="number_of_questions" min="1" max="10" value="5">
+
+    <button type="submit">Generate Questions</button>
+</form>
+
+<h2>Interview Questions</h2>
+
+{% for item in interview_sets %}
+    <div class="panel">
+        <h3>{{ item.subject }} - {{ item.role }}</h3>
+        {% for question in item.question_list %}
+            <p><strong>Q{{ forloop.counter }}. {{ question.question }}</strong></p>
+            <p><strong>Answer:</strong> {{ question.answer|linebreaksbr }}</p>
+        {% endfor %}
+    </div>
+{% empty %}
+    <p>No interview questions generated yet.</p>
+{% endfor %}
+
+{% endblock %}

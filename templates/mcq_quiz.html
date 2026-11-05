@@ -1,0 +1,94 @@
+```html
+{% extends 'base.html' %}
+
+{% block title %}Quiz Generator | EduMind{% endblock %}
+
+{% block content %}
+
+<section class="page-heading">
+    <div>
+        <span class="section-kicker">TEST YOUR KNOWLEDGE</span>
+        <h1>MCQ Quiz <span class="gradient-text">Generator</span></h1>
+        <p class="muted">Generate questions and test your understanding.</p>
+    </div>
+</section>
+
+<section class="panel">
+
+    <h2>Create Your Quiz</h2>
+
+    <form method="POST" class="form-grid">
+
+        {% csrf_token %}
+
+        <label>Topic
+            <input type="text" name="topic"
+                   placeholder="Example: Python Loops" required>
+        </label>
+
+        <label>Subject
+            <select name="subject">
+                <option>Python</option>
+                <option>Java</option>
+                <option>DBMS</option>
+                <option>Operating Systems</option>
+                <option>Data Structures</option>
+                <option>Computer Networks</option>
+            </select>
+        </label>
+
+        <label>Difficulty
+            <select name="difficulty">
+                <option>Beginner</option>
+                <option>Intermediate</option>
+                <option>Advanced</option>
+            </select>
+        </label>
+
+        <label>Number of Questions
+            <input type="number" name="question_count"
+                   min="3" max="10" value="5">
+        </label>
+
+        <button type="submit" class="btn">
+            Generate Quiz →
+        </button>
+
+    </form>
+
+</section>
+
+
+<section class="panel section-block">
+
+    <h2>Previous Quizzes</h2>
+
+    {% for quiz in quizzes %}
+
+        <div class="history-item">
+
+            <div>
+                <h3>{{ quiz.title }}</h3>
+                <small>{{ quiz.created_at }}</small>
+            </div>
+
+            <a href="{% url 'take_quiz' quiz.id %}"
+               class="text-link">
+                Open Quiz →
+            </a>
+
+        </div>
+
+    {% empty %}
+
+        <div class="empty-state">
+            <h3>No quizzes available</h3>
+            <p>Generate your first quiz to get started.</p>
+        </div>
+
+    {% endfor %}
+
+</section>
+
+{% endblock %}
+```

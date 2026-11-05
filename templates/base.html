@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}EduMind | AI Student Companion{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">
+            <span class="logo-icon">E</span>
+            <span>Edu<span class="logo-highlight">Mind</span></span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+            ☰
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="/login/" class="nav-login">Login</a>
+            <a href="/register/" class="nav-register">Get Started <span>↗</span></a>
+            <button class="theme-button" id="themeToggle" aria-label="Change theme">☾</button>
+        </div>
+    </nav>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <a href="/" class="logo footer-logo">
+            <span class="logo-icon">E</span>
+            <span>Edu<span class="logo-highlight">Mind</span></span>
+        </a>
+        <p>Learn smarter. Practice better. Grow every day.</p>
+        <p class="copyright">© 2026 EduMind. Built for curious learners.</p>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

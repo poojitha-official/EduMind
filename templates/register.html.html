@@ -1,0 +1,130 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Create Account | EduMind{% endblock %}
+
+{% block content %}
+
+<section class="auth-layout">
+
+    <div class="auth-aside">
+        <span class="section-kicker">START YOUR JOURNEY</span>
+
+        <h1>
+            Learn more.<br>
+            <span class="gradient-text">Achieve more.</span>
+        </h1>
+
+        <p>
+            Create your EduMind account and get your personal
+            AI learning companion.
+        </p>
+
+        <div class="aside-points">
+            <span>✦ Understand difficult concepts</span>
+            <span>✦ Prepare for technical interviews</span>
+            <span>✦ Practise quizzes</span>
+            <span>✦ Track your learning progress</span>
+        </div>
+    </div>
+
+    <div class="panel auth-panel">
+
+        <span class="section-kicker">CREATE ACCOUNT</span>
+
+        <h2>Join EduMind</h2>
+
+        <p class="muted">
+            Enter your details to get started.
+        </p>
+
+       <form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+
+            {% csrf_token %}
+
+            <div class="two-col">
+
+                <label>
+                    First Name
+                    <input
+                        type="text"
+                        name="first_name"
+                        placeholder="First name"
+                        maxlength="150"
+                        required
+                    >
+                </label>
+
+                <label>
+                    Last Name
+                    <input
+                        type="text"
+                        name="last_name"
+                        placeholder="Last name"
+                        maxlength="150"
+                        required
+                    >
+                </label>
+
+            </div>
+
+            <label>
+                Username
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Choose username"
+                    maxlength="150"
+                    required
+                >
+            </label>
+
+            <label>
+                Email
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter email"
+                    required
+                >
+            </label>
+
+            <label>
+                Password
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Minimum 6 characters"
+                    minlength="6"
+                    required
+                >
+            </label>
+
+            <label>
+                Confirm Password
+                <input
+                    type="password"
+                    name="confirm_password"
+                    placeholder="Enter password again"
+                    minlength="6"
+                    required
+                >
+            </label>
+
+            <button type="submit" class="btn btn-full">
+                Create Account →
+            </button>
+
+        </form>
+
+        <p class="form-foot">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

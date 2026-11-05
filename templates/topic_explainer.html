@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Topic Explainer | EduMind{% endblock %}
+{% block content %}
+
+<h1>AI Topic Explainer</h1>
+<p>Understand difficult topics in simple English.</p>
+
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+<form method="POST" class="panel">
+    {% csrf_token %}
+
+    <label>Subject</label>
+    <input type="text" name="subject" placeholder="Example: Python" required>
+
+    <label>Topic</label>
+    <input type="text" name="topic" placeholder="Example: Loops" required>
+
+    <label>Difficulty</label>
+    <select name="difficulty">
+        <option>Beginner</option>
+        <option>Intermediate</option>
+        <option>Advanced</option>
+    </select>
+
+    <button type="submit">Explain Topic</button>
+</form>
+
+<h2>Generated Explanations</h2>
+
+{% for item in topics %}
+    <div class="panel">
+        <h3>{{ item.topic }} - {{ item.subject }}</h3>
+        <h4>Summary</h4>
+        <p>{{ item.summary|linebreaksbr }}</p>
+        <h4>Easy Analogy</h4>
+        <p>{{ item.analogy|linebreaksbr }}</p>
+        <h4>Explanation</h4>
+        <p>{{ item.explanation|linebreaksbr }}</p>
+        <h4>Code Example</h4>
+        <pre>{{ item.code_example }}</pre>
+        <h4>Key Takeaways</h4>
+        <p>{{ item.takeaways|linebreaksbr }}</p>
+        <h4>Interview Tips</h4>
+        <p>{{ item.interview_tips|linebreaksbr }}</p>
+    </div>
+{% empty %}
+    <p>No explanations generated yet.</p>
+{% endfor %}
+
+{% endblock %}
